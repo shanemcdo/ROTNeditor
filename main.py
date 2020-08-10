@@ -36,12 +36,19 @@ def open_files(relative_paths, gvim_flags, n) -> None:
         for path in relative_paths:
             os.system("ROTN " + str(n) + " -f " + path + " -o " + path)
 
+def print_command_template() -> None:
+    print(
+            "ROTNe {file(s)} [gvim flags]\n" +
+            "\tTo see flags do vim --help"
+            )
+
 def main():
     try:
         paths, gvim_flags, n = parse_args(sys.argv)
+        open_files(paths, gvim_flags, n)
     except Exception as e:
         print("Error:", e)
-    open_files(paths, gvim_flags, n)
+        print_command_template()
 
 if __name__ == "__main__":
     main()
