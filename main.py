@@ -38,8 +38,11 @@ def open_files(relative_paths, gvim_flags, n) -> None:
 
 def print_command_template() -> None:
     print(
-            "ROTNe {file(s)} [gvim flags]\n" +
-            "\tTo see flags do vim --help"
+            "Usage of command:\n" +
+            "\tROTNe {file(s)} [gvim flags]\n" +
+            "\t\tsee vim --help for info on flags\n" +
+            "\t\tMore flags:\n" +
+            "\t\t\t--rotn - next input is how many spaces rotated"
             )
 
 def main():
