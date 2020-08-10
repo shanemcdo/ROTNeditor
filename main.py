@@ -7,18 +7,16 @@ def parse_args(args: list) -> ("relative_path", "gvim_flags", int):
     :returns: a tuple of the relative path name and the flags for gvim and the number of rotations to encode
     """
     _ = args.pop(0)
+    if len(args) < 1:
+        raise(Exception("Too few arguments"))
+    elif len(args) == 1:
+        return args, "", 1
     relative_paths = []
     gvim_flags = ""
-    next_arg_is_n = False
-    n = 0
+    n = int(args.pop(0))
     for arg in args:
-        if arg == '--rotn':
-            next_arg_is_n = True
-        elif arg.startswith('-'):
+        if arg.startswith('-'):
             gvim_flags += arg + " "
-        elif next_arg_is_n:
-            n = int(arg)
-            next_arg_is_n = False
         else:
             relative_paths.append(arg)
     length = len(relative_paths)
@@ -39,10 +37,8 @@ def open_files(relative_paths, gvim_flags, n) -> None:
 def print_command_template() -> None:
     print(
             "Usage of command:\n" +
-            "\tROTNe {file(s)} [gvim flags]\n" +
-            "\t\tsee vim --help for info on flags\n" +
-            "\t\tMore flags:\n" +
-            "\t\t\t--rotn - next input is how many spaces rotated"
+            "\tROTNe {n; spaces to rotate} {file(s)} [gvim flags]\n" +
+            "\t\tsee vim --help for info on flags\n"
             )
 
 def main():
